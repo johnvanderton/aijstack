@@ -1,7 +1,7 @@
 {
-  "name": "nestjs-rag-openai",
+  "name": "aijstack",
   "version": "1.0.0",
-  "description": "RAG system using NestJS and OpenAI",
+  "description": "AI RAG based system poered by nodejs",
   "scripts": {
     "start": "nest start",
     "start:dev": "nest start --watch",
