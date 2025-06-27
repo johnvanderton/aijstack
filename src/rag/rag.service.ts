@@ -8,7 +8,7 @@ import * as path from 'path';
 
 @Injectable()
 export class RAGService {
-  private vectorStore: MemoryVectorStore;
+  private vectorStore!: MemoryVectorStore;
 
   constructor() {
     this.loadDocuments();

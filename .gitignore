@@ -1,2 +1,12 @@
 # Node modules
 node_modules/
+
+# Build output
+dist/
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+jspm_packages/
