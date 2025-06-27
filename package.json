@@ -1,6 +1,6 @@
 {
-  "name": "nestjs-langchain-rag",
-  "version": "1.0.0",
+  "name": "aijstack",
+  "version": "0.0.1",
   "scripts": {
     "start": "nest start",
     "start:dev": "nest start --watch"
