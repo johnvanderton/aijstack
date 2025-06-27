@@ -4,7 +4,7 @@ A setup for building and running a generative AI system using Node.js.
 
 ## Technical Specs
 
-Based on 'RAG' Retrieval-Augmented Generation using a minimal configuration.
+Based on 'RAG' Retrieval-Augmented Generation using minimal configuration.
 
 | Layer               | Node.js Tool/Lib                                             | Notes                                       |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------- |
