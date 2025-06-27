@@ -1,4 +1,4 @@
-# AIStack
+# AIJStack
 
 Stack that allow the configuration of a generative intelligence system and running on nodejs.
 
