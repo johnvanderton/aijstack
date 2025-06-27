@@ -1,7 +1,7 @@
 # AIStack
 
-Domain Dedicated AI Stack
+Stack that allow the configuration of a generative intelligence system and dedicated to a specific domain.
 
-## Topic
+## Technical Specs
 
-Stack enabling the configuration of a generative intelligence system and dedicated to a specific domain.
+The stack is based on 'RAG' Retrieval-Augmented Generation and running on javascript (nodejs)
