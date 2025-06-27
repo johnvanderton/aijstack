@@ -18,4 +18,4 @@ Based on 'RAG' Retrieval-Augmented Generation using minimal configuration.
 | **Quantization**    | `gguf`                                                       | Make model smaller and faster (HuggingFace) |
 | **Bot Serving**     | `Vite`                                                       | Serve chatbot as REST, WebSocket, or UI     |
 
-ChatGPT discussion log report 27-06-2025
+ChatGPT log discussion 27-06-2025
