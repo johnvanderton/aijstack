@@ -4,7 +4,7 @@ A setup for building and running a generative AI system using Node.js.
 
 ## Technical Specs
 
-'RAG' Retrieval-Augmented Generation based on Phi-2 LLM.
+'RAG' Retrieval-Augmented Generation powered by `Phi-2` LLM.
 
 | Layer                | Node.js Tool/Lib                                             | Notes                                       |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------- |
