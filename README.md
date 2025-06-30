@@ -1,10 +1,10 @@
 # AIJStack
 
-A setup for building and running a generative AI system using Node.js.
+Stack dedicated for building and running a generative AI system using Node.js.
 
 ## Technical Specs
 
-'RAG' Retrieval-Augmented Generation powered by `Phi-2` LLM.
+Based on a 'RAG' Retrieval-Augmented Generation and powered by `Phi-2` LLM.
 
 | Layer                | Node.js Tool/Lib                                             | Notes                                       |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------- |
