@@ -1,6 +1,6 @@
 # AIJStack
 
-Stack dedicated for building and running a generative AI system using Node.js.
+Stack dedicated for running a generative AI system using Node.js.
 
 ## Technical Specs
 
