@@ -4,7 +4,7 @@
   "scripts": {
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "start:llm": "python3 src/scripts/start-llm-server.py",
+    "start:llm": "python3.10 src/llm/start-llm-server.py",
     "dev:all": "concurrently \"npm run start:llm\" \"npm run start\""
   },
   "dependencies": {
