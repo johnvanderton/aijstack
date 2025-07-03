@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
@@ -12,6 +13,12 @@ model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2", torch_dtype=torc
 class Prompt(BaseModel):
     text: str
 
+# Ensure the model is loaded correctly
+@app.get("/")
+async def read_root():
+    return HTMLResponse(content='Welcome to the <a href="https://github.com/johnvanderton/aijstack">AIJStack</a> server!')
+
+# Endpoint to generate text based on a prompt
 @app.post("/generate")
 async def generate(prompt: Prompt):
     inputs = tokenizer(prompt.text, return_tensors="pt").to(model.device)
