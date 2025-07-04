@@ -6,6 +6,9 @@ import { TextLoader } from 'langchain/document_loaders/fs/text';
 import * as fs from 'fs';
 import * as path from 'path';
 
+/**
+ * Service for handling RAG (Retrieval-Augmented Generation) operations.
+ */
 @Injectable()
 export class RAGService {
   private vectorStore!: MemoryVectorStore;
