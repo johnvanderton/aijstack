@@ -7,16 +7,32 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 /**
+ * `RAGService` Class Definition
+ *
+ * RAG (Retrieval-Augmented Generation) Service
+ *
  * Service for handling RAG (Retrieval-Augmented Generation) operations.
  */
 @Injectable()
 export class RAGService {
   private vectorStore!: MemoryVectorStore;
 
+  /**
+   * Constructor for RAGService
+   */
   constructor() {
     this.loadDocuments();
   }
 
+  /**
+   * `loadDocuments` Method Definition
+   * 
+   * Loads documents from the specified directory and initializes the vector store. This method reads text files, splits them into 
+   * smaller chunks, and creates embeddings for the chunks. It uses a mock embedding model for demonstration purposes, which should 
+   * be replaced with a local embedding model in production.
+   * 
+   * @returns {Promise<void>}
+   */
   async loadDocuments() {
     const docsPath = path.resolve(__dirname, '../../documents');
     const files = fs.readdirSync(docsPath).filter(f => f.endsWith('.txt'));
@@ -41,8 +57,17 @@ export class RAGService {
     this.vectorStore = await MemoryVectorStore.fromDocuments(splitDocs, embeddings);
   }
 
+  /**
+   * `getContext` Method Definition
+   * 
+   * Retrieves context for a given query by performing a similarity search based on the vector store.
+   * 
+   * @param query 
+   * @returns 
+   */
   async getContext(query: string): Promise<string> {
     const results = await this.vectorStore.similaritySearch(query, 3);
     return results.map(r => r.pageContent).join('\n');
   }
+  
 }

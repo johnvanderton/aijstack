@@ -17,6 +17,10 @@ export class AppController {
 
   /**
    * 
+   * `generate` Method Definition
+   * 
+   * Generates an answer based on the provided query.
+   * 
    * @param query 
    * @returns 
    */

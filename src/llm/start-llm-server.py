@@ -10,6 +10,12 @@ app = FastAPI()
 tokenizer = AutoTokenizer.from_pretrained("microsoft/phi-2")
 model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2", torch_dtype=torch.float16, device_map="auto")
 
+## 
+# Prompt Class definition
+#
+# Define the request model for the prompt
+#
+##
 class Prompt(BaseModel):
     text: str
 
