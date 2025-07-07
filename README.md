@@ -25,4 +25,4 @@ ChatGPT log discussion 27-06-2025
 ### LLM server instance
 The current instance is developed with Python 3.10 and should use the below statement for dependecies installation,
 
-`pip/pip3.10 install fastapi uvicorn torch transformers accelerate`
+`pip/pip3.10 install fastapi uvicorn torch transformers accelerate pydantic`
