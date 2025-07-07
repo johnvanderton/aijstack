@@ -13,7 +13,7 @@ Based on a 'RAG' Retrieval-Augmented Generation and powered by `Phi-2` LLM.
 | **Embeddings**       | `@tensorflow-models/universal-sentence-encoder`              | Local: TensorFlow\.js; Remote: OpenAI, etc  |
 | **Vector search**    | `vectra`, `hnswlib-node`, `chromadb-node`, `weaviate-client` | Store and retrieve embedded chunks          |
 | **RAG Framework**    | `langchainjs`                                                | Chain together: Retrieval + Generation      |
-| **LLM**              | `Phi-2`                                                      | Use the local API                           |
+| **LLM**              | `Phi-2` (`EleutherAI/gpt-neo-125M` for testing purposes)     | Use the local API                           |
 | **Fine Tuning**      | `gguf`                                                       | Teach model new info (HuggingFace)          |
 | **Quantization**     | `gguf`                                                       | Make model smaller and faster (HuggingFace) |
 | **Bot Serving**      | `Vite`                                                       | Serve chatbot as REST, WebSocket, or UI     |
