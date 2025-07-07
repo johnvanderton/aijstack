@@ -7,8 +7,12 @@ import uvicorn
 
 app = FastAPI()
 
-tokenizer = AutoTokenizer.from_pretrained("microsoft/phi-2")
-model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2", torch_dtype=torch.float16, device_map="auto")
+# For this example, we will use a smaller model to ensure it runs smoothly
+# previous configuration based on "microsoft/phi-2"
+tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-125M")
+model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-125M", 
+                                             torch_dtype=torch.float32, 
+                                             device_map="auto")
 
 ## 
 # Prompt Class definition
@@ -27,9 +31,14 @@ async def read_root():
 # Endpoint to generate text based on a prompt
 @app.post("/generate")
 async def generate(prompt: Prompt):
-    inputs = tokenizer(prompt.text, return_tensors="pt").to(model.device)
-    outputs = model.generate(**inputs, max_new_tokens=200)
-    return {"response": tokenizer.decode(outputs[0], skip_special_tokens=True)}
+    try: 
+        inputs = tokenizer(prompt.text, return_tensors="pt").to("cuda" if torch.cuda.is_available() else "cpu")
+        outputs = model.generate(**inputs, max_new_tokens=200, do_sample=True, temperature=0.7)
+        return {"response": tokenizer.decode(outputs[0], skip_special_tokens=True)}
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return {"error": str(e)}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
