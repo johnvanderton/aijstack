@@ -27,4 +27,5 @@ export class AppService {
     const answer = await this.genService.callLocalModel(context, query);
     return { query, context, answer };
   }
+
 }

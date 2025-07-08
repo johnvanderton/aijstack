@@ -9,8 +9,6 @@ import * as path from 'path';
 /**
  * `RAGService` Class Definition
  *
- * RAG (Retrieval-Augmented Generation) Service
- *
  * Service for handling RAG (Retrieval-Augmented Generation) operations.
  */
 @Injectable()

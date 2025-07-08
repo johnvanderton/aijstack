@@ -2,10 +2,11 @@
   "name": "aijstack",
   "version": "0.0.1",
   "scripts": {
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:llm": "python3.10 src/llm/start-llm-server.py",
-    "dev:all": "concurrently \"npm run start:llm\" \"npm run start\""
+    "start-rag:dev": "nest start",
+    "start-rag:debug": "nest start --watch",
+    "start-llm:dev": "python3.10 src/llm/start-llm-server.py",
+    "start-llm:debug": "python3.10 src/llm/start-llm-server.py --debug",
+    "start-dev:all": "concurrently \"npm run start-llm:dev\" \"npm run start-rag:dev\""
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
