@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import axios from 'axios';
 
 /**
  * `GenService` Method Definition
- * 
- * Service that provides methods to compute with a local model
- * 
+ *
+ * Service that provides methods to compute and invoke generative answers from the local model (LLM)
+ *
  */
 @Injectable()
 export class GenService {
@@ -17,7 +18,14 @@ export class GenService {
    * @returns The model's response
    */
   async callLocalModel(context: string, query: string): Promise<string> {
-    return `Answer (mocked): Based on:\n${context}\n\nQuery: ${query}`;
+    // console.log('Calling local model with context:', context, 'and query:', query);
+    // seems that the llm is not expecting for context and query to be passed as an object
+    const response = await axios.post('http://127.0.0.1:8000/generate', {
+      context,
+      query,
+    });
+    return response.data.answer;
+    //return `Answer (mocked): Based on:\n${context}\n\nQuery: ${query}`;
   }
 
 }

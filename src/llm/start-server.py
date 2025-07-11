@@ -30,9 +30,15 @@ model = AutoModelForCausalLM.from_pretrained(model_name,
 #
 # Define the request model for the prompt
 #
+# Note: the LLM is just Predicting the next token given all previous tokens.
+# The prompt is a simple text input with optional parameters for generation.   
+#  example for an input : "inputs": "Context:\nThe capital of France is Paris.\nFrance is located in Western Europe.\n\nQuestion: What is the capital of France?\nAnswer:",
 ##
 class Prompt(BaseModel):
-    text: str
+    input: str
+    max_new_tokens: int = 50
+    temperature: float = 0.7
+    do_sample: bool = True
 
 # Ensure the model is loaded correctly
 @app.get("/")
@@ -43,7 +49,7 @@ async def read_root():
 @app.post("/generate")
 async def generate(prompt: Prompt):
     try: 
-        inputs = tokenizer(prompt.text, return_tensors="pt").to("cuda" if torch.cuda.is_available() else "cpu")
+        inputs = tokenizer(prompt.input, return_tensors="pt").to("cuda" if torch.cuda.is_available() else "cpu")
         outputs = model.generate(**inputs, max_new_tokens=max_tokens_value, do_sample=True, temperature=0.7)
         return {"response": tokenizer.decode(outputs[0], skip_special_tokens=True)}
     except Exception as e:
