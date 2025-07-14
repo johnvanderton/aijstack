@@ -1,3 +1,4 @@
+import logging
 import torch
 import uvicorn
 from fastapi import FastAPI
@@ -16,7 +17,11 @@ default_logging_level = "info"
 max_tokens_value = 200
 
 # Load the model and tokenizer (small setup for testing purposes)
-model_name = "EleutherAI/gpt-neo-125M"
+#model_name = "EleutherAI/gpt-neo-125M"
+#model_name = "microsoft/Phi-3-mini-4k-instruct" #too slow
+#model_name = "google/gemma-2b-it" #too slow #need login
+#model_name = "microsoft/phi-1_5"
+model_name =  "stabilityai/stablelm-2-1_6b-chat"
 
 # For this example, we will use a smaller model to ensure it runs smoothly
 # previous configuration based on "microsoft/phi-2"
@@ -49,13 +54,13 @@ async def read_root():
 @app.post("/generate")
 async def generate(prompt: Prompt):
     try: 
+        ### 
+        logging.info(f"Received prompt: {prompt.input}")
         inputs = tokenizer(prompt.input, return_tensors="pt").to("cuda" if torch.cuda.is_available() else "cpu")
         outputs = model.generate(**inputs, max_new_tokens=max_tokens_value, do_sample=True, temperature=0.7)
         return {"response": tokenizer.decode(outputs[0], skip_special_tokens=True)}
     except Exception as e:
         import traceback
-        traceback.print_exc()
-        return {"error": str(e)}
 
 if __name__ == "__main__":
     uvicorn.run(app, 
