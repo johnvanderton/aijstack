@@ -17,11 +17,11 @@ default_logging_level = "info"
 max_tokens_value = 200
 
 # Load the model and tokenizer (small setup for testing purposes)
-#model_name = "EleutherAI/gpt-neo-125M"
+model_name = "EleutherAI/gpt-neo-125M" #causal language models which is 
 #model_name = "microsoft/Phi-3-mini-4k-instruct" #too slow
 #model_name = "google/gemma-2b-it" #too slow #need login
 #model_name = "microsoft/phi-1_5"
-model_name =  "stabilityai/stablelm-2-1_6b-chat"
+#model_name =  "stabilityai/stablelm-2-1_6b-chat"
 
 # For this example, we will use a smaller model to ensure it runs smoothly
 # previous configuration based on "microsoft/phi-2"
@@ -36,14 +36,15 @@ model = AutoModelForCausalLM.from_pretrained(model_name,
 # Define the request model for the prompt
 #
 # Note: the LLM is just Predicting the next token given all previous tokens.
+#
 # The prompt is a simple text input with optional parameters for generation.   
-#  example for an input : "inputs": "Context:\nThe capital of France is Paris.\nFrance is located in Western Europe.\n\nQuestion: What is the capital of France?\nAnswer:",
+#
 ##
 class Prompt(BaseModel):
     input: str
     max_new_tokens: int = 50
     temperature: float = 0.7
-    do_sample: bool = True
+    do_sample: bool = False
 
 # Ensure the model is loaded correctly
 @app.get("/")
@@ -54,10 +55,15 @@ async def read_root():
 @app.post("/generate")
 async def generate(prompt: Prompt):
     try: 
-        ### 
-        logging.info(f"Received prompt: {prompt.input}")
+        # print(f"Prompt input >> {prompt.input}")
         inputs = tokenizer(prompt.input, return_tensors="pt").to("cuda" if torch.cuda.is_available() else "cpu")
-        outputs = model.generate(**inputs, max_new_tokens=max_tokens_value, do_sample=True, temperature=0.7)
+        outputs = model.generate(**inputs, 
+                                    max_new_tokens=max_tokens_value, 
+                                    do_sample=False, 
+                                    temperature=0.7, 
+                                    eos_token_id=tokenizer.eos_token_id,
+                                    repetition_penalty=1.5,
+                                    no_repeat_ngram_size=3)
         return {"response": tokenizer.decode(outputs[0], skip_special_tokens=True)}
     except Exception as e:
         import traceback

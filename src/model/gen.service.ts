@@ -13,6 +13,9 @@ export class GenService {
   /**
    * Calls the local model with the given context and query
    * 
+   * todo : map and concatenate the context and query into a single input string like this:
+   * {"input" : "Context: Berlin is the capital city of Germany. It is known for the Brandenburg Gate and the Reichstag.\nQuestion: What is Berlin famous for?\nAnswer:"}
+   * 
    * @param context The context to provide to the model
    * @param query The query to ask the model
    * @returns The model's response
