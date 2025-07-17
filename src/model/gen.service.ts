@@ -21,9 +21,9 @@ export class GenService {
    * @returns The model's response
    */
   async callLocalModel(context: string, query: string): Promise<string> {
-    // console.log('Calling local model with context:', context, 'and query:', query);
+    console.log('Calling local model with context:', context, 'and query:', query);
     // seems that the llm is not expecting for context and query to be passed as an object
-    const response = await axios.post('http://127.0.0.1:8000/generate', {
+    const response = await axios.post('http://localhost:8000/generate', {
       context,
       query,
     });

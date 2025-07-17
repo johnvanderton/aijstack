@@ -1,4 +1,3 @@
-import logging
 import torch
 import uvicorn
 from fastapi import FastAPI
@@ -66,7 +65,7 @@ async def generate(prompt: Prompt):
                                     no_repeat_ngram_size=3)
         return {"response": tokenizer.decode(outputs[0], skip_special_tokens=True)}
     except Exception as e:
-        import traceback
+        return {"error": str(e)}
 
 if __name__ == "__main__":
     uvicorn.run(app, 
