@@ -16,7 +16,7 @@ AI stack based on 'RAG' Retrieval-Augmented Generation and `EleutherAI/gpt-neo-1
 
 ChatGPT log discussion 27-06-2025
 
-## Installatiuon steps
+## Installation steps
 
 ### LLM server instance
 The current instance is developed with Python 3.10 and should use the below statement for dependecies installation,
