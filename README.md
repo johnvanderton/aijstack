@@ -1,10 +1,6 @@
 # AIJStack
 
-Stack dedicated to run a generative AI system using Node.js.
-
-## Technical Specs
-
-Based on a 'RAG' Retrieval-Augmented Generation and powered by `Phi-2` LLM.
+AI stack based on 'RAG' Retrieval-Augmented Generation and `EleutherAI/gpt-neo-125M` LLM model.
 
 | Layer                | Node.js Tool/Lib                                             | Notes                                       |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------- |
@@ -20,7 +16,7 @@ Based on a 'RAG' Retrieval-Augmented Generation and powered by `Phi-2` LLM.
 
 ChatGPT log discussion 27-06-2025
 
-## Installatiuon steps
+## Installation steps
 
 ### LLM server instance
 The current instance is developed with Python 3.10 and should use the below statement for dependecies installation,
