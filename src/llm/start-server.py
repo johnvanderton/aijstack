@@ -5,45 +5,47 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
+# FastAPI application instance, main entry point for the server
 app = FastAPI()
 
 # Default values for the server
+default_logging_level = "info"  # Options: "debug", "info", "warning", "error", "critical"
 default_port_listenning = 8000
 default_host_listenning = "127.0.0.1"   
-default_logging_level = "info"
 
-# Maximum number of tokens for generation
-max_tokens_value = 200
+# Default values for the model generation parameters
+default_do_sample_value = False
+default_max_tokens_value = 200
+default_no_repeat_ngram_size_value = 3
+default_repetition_penalty_value = 1.5
+default_temperature_value = 0.7
 
 # Load the model and tokenizer (small setup for testing purposes)
 model_name = "EleutherAI/gpt-neo-125M" #causal language models which is 
+#model_name = "microsoft/phi-1_5" #too retest
 #model_name = "microsoft/Phi-3-mini-4k-instruct" #too slow
-#model_name = "google/gemma-2b-it" #too slow #need login
-#model_name = "microsoft/phi-1_5"
-#model_name =  "stabilityai/stablelm-2-1_6b-chat"
 
 # For this example, we will use a smaller model to ensure it runs smoothly
-# previous configuration based on "microsoft/phi-2"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name, 
                                              torch_dtype=torch.float32, 
                                              device_map="auto")
 
 ## 
-# Prompt Class definition
+# 'Prompt' Class definition
 #
-# Define the request model for the prompt
+# Define the request model for the prompt. It is a simple text input with optional parameters for generation.   
 #
 # Note: the LLM is just Predicting the next token given all previous tokens.
-#
-# The prompt is a simple text input with optional parameters for generation.   
 #
 ##
 class Prompt(BaseModel):
     input: str
-    max_new_tokens: int = 50
-    temperature: float = 0.7
-    do_sample: bool = False
+    max_new_tokens: int = default_max_tokens_value
+    temperature: float = default_temperature_value
+    do_sample: bool = default_do_sample_value
+    repetition_penalty: float = default_repetition_penalty_value
+    no_repeat_ngram_size: int = default_no_repeat_ngram_size_value
 
 # Ensure the model is loaded correctly
 @app.get("/")
@@ -54,16 +56,16 @@ async def read_root():
 @app.post("/generate")
 async def generate(prompt: Prompt):
     try: 
-        # print(f"Prompt input >> {prompt.input}")
+        #print(f"Prompt input >> {prompt.input}")
         inputs = tokenizer(prompt.input, return_tensors="pt").to("cuda" if torch.cuda.is_available() else "cpu")
         outputs = model.generate(**inputs, 
-                                    max_new_tokens=max_tokens_value, 
-                                    do_sample=False, 
-                                    temperature=0.7, 
+                                    max_new_tokens=prompt.max_new_tokens,
+                                    do_sample=prompt.do_sample, 
+                                    #temperature=prompt.temperature, 
                                     eos_token_id=tokenizer.eos_token_id,
-                                    repetition_penalty=1.5,
-                                    no_repeat_ngram_size=3)
-        return {"response": tokenizer.decode(outputs[0], skip_special_tokens=True)}
+                                    repetition_penalty=prompt.repetition_penalty,
+                                    no_repeat_ngram_size=prompt.no_repeat_ngram_size)
+        return {tokenizer.decode(outputs[0], skip_special_tokens=True)}
     except Exception as e:
         return {"error": str(e)}
 

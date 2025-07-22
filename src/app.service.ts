@@ -27,7 +27,6 @@ export class AppService {
   async generate(query: string) {
     //producing the context based on the query (ok)
     const context = await this.ragService.getContext(query);
-    //probleme below
     const answer = await this.genService.callLocalModel(context, query);
     return { query, context, answer };
   }

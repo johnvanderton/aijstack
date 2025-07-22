@@ -18,17 +18,10 @@ export class GenService {
    * @returns The model's response
    */
   async callLocalModel(context: string, query: string): Promise<string> {
-    console.log('Calling local model with context:', context, 'and query:', query);
-    //note the context is a concatenation of the context string
-    // map it this format : 
-    // {"input" : "Context: Berlin is the capital city of Germany. It is known for the Brandenburg Gate and the Reichstag.\nQuestion: What is Berlin famous for?\nAnswer:"}
-    // seems that the llm is not expecting for context and query to be passed as an object
-    // const response = await axios.post('http://localhost:8000/generate', {
-    //   context,
-    //   query,
-    // });
-    // return response.data.answer;
-    return "beuh";
+    const payload = {"input": `Context: ${context}\nQuestion: ${query}\nAnswer:`};
+    const response = await axios.post('http://localhost:8000/generate', payload);
+    return JSON.stringify(response.data, null, 2); //return the full response for debugging
+    //return response.data.answer; //return undefined if no answer is provided
   }
 
 }
