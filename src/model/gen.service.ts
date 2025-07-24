@@ -20,8 +20,7 @@ export class GenService {
   async callLocalModel(context: string, query: string): Promise<string> {
     const payload = {"input": `Context: ${context}\nQuestion: ${query}\nAnswer:`};
     const response = await axios.post('http://localhost:8000/generate', payload);
-    return JSON.stringify(response.data, null, 2); //return the full response for debugging
-    //return response.data.answer; //return undefined if no answer is provided
+    return response.data;
   }
 
 }

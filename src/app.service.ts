@@ -21,14 +21,22 @@ export class AppService {
    * 
    * This method retrieves context from the RAG service and then uses the Gen service (LLM) to generate an answer
    * 
-   * @param query input value which is the user's question or request
+   * @param query input value which is the user's question
    * @returns an object containing the query, context, and generated answer
    */
   async generate(query: string) {
-    //producing the context based on the query (ok)
+
+    /**
+     * Producing the context based from the query and refined from RAG
+     */
     const context = await this.ragService.getContext(query);
+
+    /**
+     * Context is send to the the model as well as the query
+     */
     const answer = await this.genService.callLocalModel(context, query);
-    return { query, context, answer };
+
+    return { answer };
   }
 
 }
