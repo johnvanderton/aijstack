@@ -13,6 +13,12 @@ import * as path from 'path';
  */
 @Injectable()
 export class RAGService {
+
+  /**
+   * `vectorStore` Property Definition
+   * 
+   * This property holds the vector store instance used for similarity search operations.
+   */
   private vectorStore!: MemoryVectorStore;
 
   /**
@@ -33,10 +39,23 @@ export class RAGService {
    */
   async loadDocuments() {
     const docsPath = path.resolve(__dirname, '../../documents');
-    const files = fs.readdirSync(docsPath).filter(f => f.endsWith('.txt'));
 
+    /**
+     * Read all files from the documents directory
+     */
+    const supportedExtensions = ['.txt', '.pdf', '.xlsx', '.db', '.docx', '.pptx', '.csv', '.md', '.json', 'html'];
+    const files = fs.readdirSync(docsPath).filter(f =>
+      supportedExtensions.includes(path.extname(f).toLowerCase())
+    );
+
+    /**
+     * Create files container
+     */
     const docs: Document[] = [];
 
+    /**
+     * For each file found in the documents directory
+     */
     for (const file of files) {
       const loader = new TextLoader(path.join(docsPath, file));
       const loaded = await loader.load();
