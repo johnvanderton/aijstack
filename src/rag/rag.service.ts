@@ -22,6 +22,16 @@ export class RAGService {
   private vectorStore!: MemoryVectorStore;
 
   /**
+   * `fileExtensions` Property Definition
+   */
+  private readonly fileExtensions = ['.txt', '.pdf', '.xlsx', '.db', '.docx', '.pptx', '.csv', '.md', '.json', 'html'];
+
+  /**
+   * `documentsPath` Property Definition
+   */
+  private readonly documentsPath = '../../documents';
+
+  /**
    * Constructor for RAGService
    */
   constructor() {
@@ -38,14 +48,14 @@ export class RAGService {
    * @returns {Promise<void>}
    */
   async loadDocuments() {
-    const docsPath = path.resolve(__dirname, '../../documents');
+    const docsPath = path.resolve(__dirname, this.documentsPath);
 
     /**
      * Read all files from the documents directory
      */
-    const supportedExtensions = ['.txt', '.pdf', '.xlsx', '.db', '.docx', '.pptx', '.csv', '.md', '.json', 'html'];
+    //const supportedExtensions = this.fileExtensions;
     const files = fs.readdirSync(docsPath).filter(f =>
-      supportedExtensions.includes(path.extname(f).toLowerCase())
+      this.fileExtensions.includes(path.extname(f).toLowerCase())
     );
 
     /**
