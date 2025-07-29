@@ -17,7 +17,7 @@ export class RAGService {
   /**
    * `vectorStore` Property Definition
    * 
-   * This property holds the vector store instance used for similarity search operations.
+   * This property holds the vector store instance used for similarity search operations
    */
   private vectorStore!: MemoryVectorStore;
 
@@ -32,7 +32,7 @@ export class RAGService {
   private readonly documentsPath = '../../documents';
 
   /**
-   * Constructor for RAGService
+   * Constructor
    */
   constructor() {
     this.loadDocuments();
@@ -53,7 +53,6 @@ export class RAGService {
     /**
      * Read all files from the documents directory
      */
-    //const supportedExtensions = this.fileExtensions;
     const files = fs.readdirSync(docsPath).filter(f =>
       this.fileExtensions.includes(path.extname(f).toLowerCase())
     );
@@ -64,7 +63,7 @@ export class RAGService {
     const docs: Document[] = [];
 
     /**
-     * For each file found in the documents directory
+     * For each file found in the documents directory, load the file content and add it to the documents array
      */
     for (const file of files) {
       const loader = new TextLoader(path.join(docsPath, file));
@@ -74,13 +73,15 @@ export class RAGService {
 
     const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 200, chunkOverlap: 20 });
     const splitDocs = await splitter.splitDocuments(docs);
-
-    // Replace with a local embedding model here
+    
     const embeddings = {
       embedQuery: async (text: string) => Array(512).fill(0.1), // mock embedding
       embedDocuments: async (texts: string[]) => texts.map(() => Array(512).fill(0.1)),
     };
 
+    /**
+     * Initializes the vector store with document embeddings
+     */
     this.vectorStore = await MemoryVectorStore.fromDocuments(splitDocs, embeddings);
   }
 
