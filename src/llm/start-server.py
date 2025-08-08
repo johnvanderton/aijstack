@@ -22,6 +22,7 @@ default_temperature_value = 0.7
 
 # Load the model and tokenizer (small setup for testing purposes)
 model_name = "EleutherAI/gpt-neo-125M" #causal language models which is 
+#model_name = "microsoft/phi-2" #causal language models which is 
 #model_name = "microsoft/phi-1_5" #too retest
 #model_name = "microsoft/Phi-3-mini-4k-instruct" #too slow
 
