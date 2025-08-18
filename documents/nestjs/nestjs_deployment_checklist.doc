@@ -1,0 +1,43 @@
+{\rtf1\ansi\deff0
+{\fonttbl{\f0 Arial;}}
+\fs24
+\b NestJS Server – Deployment Checklist\b0\par
+\par
+\bullet Environment\par
+\tab - NODE_ENV=production\par
+\tab - ConfigModule with schema validation\par
+\tab - Secrets loaded from vault or env\par
+\par
+\bullet Build\par
+\tab - Multi-stage Dockerfile\par
+\tab - npm ci for reproducible installs\par
+\tab - \lang1033 tsconfig target ES2022; source maps off in prod\par
+\par
+\bullet Security\par
+\tab - Helmet enabled\par
+\tab - Rate limiting / throttler\par
+\tab - CSRF only when using cookies\par
+\tab - CORS restricted to known origins\par
+\par
+\bullet App Hardening\par
+\tab - Global ValidationPipe (whitelist, transform)\par
+\tab - Global exception filter with safe error responses\par
+\tab - Logging: structured (pino), requestId correlation\par
+\par
+\bullet Observability\par
+\tab - /health endpoint and readiness/liveness probes\par
+\tab - Metrics (Prometheus) and tracing headers\par
+\par
+\bullet Runtime\par
+\tab - Fastify adapter for throughput\par
+\tab - Graceful shutdown (enableShutdownHooks)\par
+\tab - Horizontal scaling behind a reverse proxy\par
+\par
+\bullet Data\par
+\tab - Migrations applied (TypeORM/Prisma)\par
+\tab - Connection pooling tuned\par
+\par
+\bullet Docs & DX\par
+\tab - Swagger at /docs with auth\par
+\tab - Versioned APIs and deprecation headers\par
+}

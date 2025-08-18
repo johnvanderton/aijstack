@@ -24,7 +24,8 @@ export class RAGService {
   /**
    * `fileExtensions` Property Definition
    */
-  private readonly fileExtensions = ['.txt', '.pdf', '.xlsx', '.db', '.docx', '.pptx', '.csv', '.md', '.json', 'html'];
+  //private readonly fileExtensions = ['.txt', '.pdf', '.xlsx', '.db', '.docx', 'doc', '.pptx', '.csv', '.md', '.json', 'html'];
+  private readonly fileExtensions = ['.txt','html','.pdf','.doc'];
 
   /**
    * `documentsPath` Property Definition
@@ -47,8 +48,8 @@ export class RAGService {
    * 
    * @returns {Promise<void>}
    */
-  async loadDocuments() {
-    const docsPath = path.resolve(__dirname, this.documentsPath);
+  async loadDocuments(folder: string = 'nestjs') {
+    const docsPath = path.resolve(__dirname, this.documentsPath, folder);
 
     /**
      * Read all files from the documents directory

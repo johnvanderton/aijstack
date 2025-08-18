@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NestJS Server – Overview & Concepts</title>
+  <meta name="description" content="Concise, RAG-friendly NestJS server notes." />
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif; line-height: 1.55; padding: 2rem; max-width: 920px; margin: 0 auto; }
+    code, pre { background: #f6f8fa; border-radius: 8px; padding: 0.5rem; display: block; overflow-x: auto; }
+    h1, h2, h3 { line-height: 1.25; }
+    .small { opacity: 0.8; font-size: 0.95rem; }
+    .chip { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 999px; background: #eef2ff; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>NestJS Server – Overview & Concepts</h1>
+  <p class="small">Prepared for Retrieval-Augmented Generation (RAG). Updated: 2025-08-18</p>
+
+  <h2>Core Ideas</h2>
+  <ul>
+    <li><b>Architecture:</b> Modular, opinionated Node.js framework based on TypeScript and OOP/FP/FRP patterns.</li>
+    <li><b>Building blocks:</b> Modules, Controllers, Providers (Services), Middleware, Pipes, Guards, Interceptors, Filters.</li>
+    <li><b>DI Container:</b> Uses a powerful dependency injection system with providers and scopes (default, request, transient).</li>
+    <li><b>HTTP layer:</b> Built atop Express (default) or Fastify (swap adapter).</li>
+  </ul>
+
+  <h2>Directory Structure</h2>
+  <pre><code>src/
+  app.module.ts
+  main.ts
+  cats/
+    cats.module.ts
+    cats.controller.ts
+    cats.service.ts
+  common/
+    pipes/
+    guards/
+    interceptors/
+    filters/
+</code></pre>
+
+  <h2>Bootstrap</h2>
+  <pre><code>import {{ NestFactory }} from '@nestjs/core';
+import {{ AppModule }} from './app.module';
+
+async function bootstrap() {{
+  const app = await NestFactory.create(AppModule);
+  app.enableCors();
+  await app.listen(process.env.PORT ?? 3000);
+}}
+bootstrap();
+</code></pre>
+
+  <h2>Controller & Service</h2>
+  <pre><code>import {{ Controller, Get }} from '@nestjs/common';
+import {{ CatsService }} from './cats.service';
+
+@Controller('cats')
+export class CatsController {{
+  constructor(private readonly cats: CatsService) {{}}  // DI
+  @Get() findAll() {{ return this.cats.findAll(); }}
+}}
+</code></pre>
+
+  <h2>Providers & Scopes</h2>
+  <ul>
+    <li>Default (singleton)</li>
+    <li>Request-scoped</li>
+    <li>Transient</li>
+  </ul>
+
+  <h2>Platform Features</h2>
+  <ul>
+    <li>Validation with class-validator &amp; class-transformer (ValidationPipe).</li>
+    <li>OpenAPI/Swagger docs via @nestjs/swagger.</li>
+    <li>Database via TypeORM, Prisma, Mongoose.</li>
+    <li>GraphQL (code-first & schema-first), WebSockets, Microservices, CQRS.</li>
+    <li>Configuration module for .env support, caching, logging, and interceptors.</li>
+  </ul>
+
+  <h2>Security</h2>
+  <ul>
+    <li>Authentication with Passport strategies (JWT, OAuth).</li>
+    <li>Authorization with Guards (e.g., RolesGuard).</li>
+    <li>Helmet, rate limiting, CSRF (depending on adapter), input validation.</li>
+  </ul>
+
+  <h2>Testing</h2>
+  <ul>
+    <li>Unit tests with Jest & the TestingModule builder.</li>
+    <li>E2E tests by bootstrapping app in-memory.</li>
+  </ul>
+
+  <h2>CLI Snippets</h2>
+  <pre><code>npm i -g @nestjs/cli
+nest new app
+nest g module users
+nest g controller users --flat
+nest g service users
+</code></pre>
+
+  <h2>Production Quick Tips</h2>
+  <ul>
+    <li>Switch to Fastify for throughput-sensitive workloads.</li>
+    <li>Enable global validation and transformation.</li>
+    <li>Use ConfigModule for environment management and secrets.</li>
+    <li>Set up pino or another structured logger.</li>
+    <li>Containerize with a multi-stage Dockerfile.</li>
+  </ul>
+
+  <h2>Minimal Dockerfile</h2>
+  <pre><code>FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=build /app/dist ./dist
+COPY package*.json ./
+RUN npm ci --omit=dev
+CMD ["node", "dist/main.js"]
+</code></pre>
+
+  <p class="small">This document is structured with short sections and code blocks for efficient chunking when used in RAG pipelines.</p>
+</body>
+</html>
