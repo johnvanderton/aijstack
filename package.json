@@ -13,7 +13,7 @@
     "@nestjs/core": "^11.1.6",
     "@nestjs/platform-express": "^11.1.6",
     "axios": "^1.6.7",
-    "langchain": "^0.3.29",
+    "langchain": "^0.3.31",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "dotenv": "^17.0.1",

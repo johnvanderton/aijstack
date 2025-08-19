@@ -22,6 +22,8 @@ export class AppService {
    * This method is generating the context from the RAG service in order to send it to the Gen service (LLM).
    * Once the context is generated, it is sent to the Gen service along with the user's query to produce an answer.
    * 
+   * TODO : keeps up to date the context following the previous response et questions
+   * 
    * @param query input value which is the user's question
    * @returns an object containing the query, context, and generated answer
    */
@@ -30,6 +32,7 @@ export class AppService {
     /**
      * Producing the context based from the query and refined from RAG
      */
+    
     const context = await this.ragService.getContext(query);
 
     /**
