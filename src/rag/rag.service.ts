@@ -25,7 +25,7 @@ export class RAGService {
    * `fileExtensions` Property Definition
    */
   //private readonly fileExtensions = ['.txt', '.pdf', '.xlsx', '.db', '.docx', 'doc', '.pptx', '.csv', '.md', '.json', 'html'];
-  private readonly fileExtensions = ['.txt','html','.pdf','.doc'];
+  private readonly fileExtensions = ['.txt','html'];
 
   /**
    * `documentsPath` Property Definition
