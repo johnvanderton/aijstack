@@ -29,36 +29,24 @@ export class AppService {
    */
   async generate(query: string) {
 
-    /**
-     * // 1. Get memory summary + relevant past turns
-      const memory = await cms.retrieve(userMessage);
+    //Get memory summary + relevant past turns
+    //const memory = await cms.retrieve(userMessage);
 
-      // 2. Retrieve external knowledge docs
-      const docs = await rag.retrieve(userMessage);
-
-      // 3. Build final prompt
-      const prompt = buildPrompt(memory, docs, userMessage);
-
-      // 4. Call LLM
-      const reply = await llm.generate(prompt);
-
-      // 5. Save new turn into CMS
-      await cms.store(userMessage, reply);
-
-      return reply;
-     * 
-     **/
+    //Build final prompt
+    //const prompt = buildPrompt(memory, docs, userMessage);
 
     /**
      * Producing the context based from the query and refined from RAG
      */
-    
     const context = await this.ragService.getContext(query);
 
     /**
      * Context as well as the query are sent to the the model
      */
     const answer = await this.genService.callLocalModel(context, query);
+    
+    //Save new turn into CMS
+    //await cms.store(userMessage, reply);
 
     return { answer };
   }
