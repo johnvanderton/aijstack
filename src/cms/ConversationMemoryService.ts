@@ -1,59 +1,59 @@
-import { v4 as uuidv4 } from "uuid";
-import { OpenAIEmbeddings, ChatOpenAI } from "@langchain/openai";
-import { MemoryVectorStore } from "langchain/vectorstores/memory";
 
 /**
- * Service for managing conversation memory
+ * Represents a single turn in the conversation
  */
-export class ConversationMemoryService {
+interface ConversationTurn {
+  role: "user" | "assistant";
+  text: string;
+  timestamp: number;
+}
 
-  private conversations: Map<string, { role: string; message: string }[]> = new Map();
-  private vectorStore: MemoryVectorStore;
-  private embeddings: OpenAIEmbeddings;
-  private summarizer: ChatOpenAI;
+/**
+ * 'Contextual Session Memory' Class Definition
+ *
+ * Service for managing contextual memory within a conversation session
+ */
+export class ContextualSessionMemory {
+  
+  private turns: ConversationTurn[] = [];
+  private maxTurns: number;
+
+  constructor(maxTurns: number = 20) {
+    this.maxTurns = maxTurns;
+  }
+
+  /** Add a new turn to memory */
+  public addTurn(role: "user" | "assistant", text: string) {
+    this.turns.push({ role, text, timestamp: Date.now() });
+
+    // Maintain sliding window
+    if (this.turns.length > this.maxTurns) {
+      this.turns = this.turns.slice(this.turns.length - this.maxTurns);
+    }
+  }
+
+  /** Retrieve formatted context for the LLM */
+  public getContext(): string {
+    return this.turns.map(t => `${t.role}: ${t.text}`).join("\n");
+  }
 
   /**
-   * Constructor for ConversationMemoryService
+   * Optionally retrieve context enriched with external info
+   * @param externalContext e.g., retrieved RAG documents
    */
-  constructor() {
-    this.embeddings = new OpenAIEmbeddings({ model: "text-embedding-3-small" });
-    this.vectorStore = new MemoryVectorStore(this.embeddings);
-    this.summarizer = new ChatOpenAI({ modelName: "gpt-3.5-turbo", temperature: 0 });
+  public getEnrichedContext(externalContext: string[]): string {
+    const conversation = this.getContext();
+    const externalText = externalContext.length > 0 ? `\nRetrieved Info:\n${externalContext.join("\n")}` : "";
+    return `${conversation}${externalText}`;
   }
 
-  async store(sessionId: string, role: "user" | "assistant", message: string) {
-    if (!this.conversations.has(sessionId)) {
-      this.conversations.set(sessionId, []);
-    }
-    const convo = this.conversations.get(sessionId)!;
-    convo.push({ role, message });
-
-    await this.vectorStore.addDocuments([
-      { id: uuidv4(), pageContent: message, metadata: { sessionId, role } },
-    ]);
+  /** Clear memory when session ends */
+  public clear() {
+    this.turns = [];
   }
 
-  async retrieve(sessionId: string, query: string): Promise<string> {
-    const convo = this.conversations.get(sessionId) || [];
-
-    // Step 1: Summarize history
-    let summary = "";
-    if (convo.length > 5) {
-      const historyText = convo.map(m => `${m.role}: ${m.message}`).join("\n");
-      const res = await this.summarizer.predict(
-        `Summarize this conversation briefly:\n\n${historyText}`
-      );
-      summary = res;
-    }
-
-    // Step 2: Semantic recall
-    const results = await this.vectorStore.similaritySearch(query, 3);
-    const relevantPast = results.map(r => r.pageContent).join("\n");
-
-    return `
-            Summary: ${summary}
-            Relevant past: ${relevantPast}
-        `;
+  /** Get raw conversation turns */
+  public getTurns(): ConversationTurn[] {
+    return [...this.turns];
   }
-
 }

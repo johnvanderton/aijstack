@@ -35,6 +35,24 @@ export class AppService {
     //Build final prompt
     //const prompt = buildPrompt(memory, docs, userMessage);
 
+    // // Create memory for a user session
+    // const sessionMemory = new ContextualSessionMemory(20);
+
+    // // User message
+    // sessionMemory.addTurn("user", "Hi! Can you suggest a good movie?");
+
+    // // Optional: retrieve relevant RAG docs
+    // const retrievedDocs = await retrieveRelevantDocs("movie suggestion"); // returns array of strings
+
+    // // Combine conversation + RAG info
+    // const prompt = sessionMemory.getEnrichedContext(retrievedDocs);
+
+    // // Call the LLM with enriched context
+    // const modelResponse = await callLLM(prompt);
+
+    // // Store model response
+    // sessionMemory.addTurn("assistant", modelResponse);
+
     /**
      * Producing the context based from the query and refined from RAG
      */
