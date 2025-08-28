@@ -2,7 +2,7 @@
 AI stack that runs on nodejs instance and based on 'RAG' Retrieval-Augmented Generation
 
 ## Stack architecture
-The below table is describing the main componensts that build the current stack
+The below table is describing the stack components
 
 | Layer                | Node.js Tool/Lib                                             | Notes                                       |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------- |
