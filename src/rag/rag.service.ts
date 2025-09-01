@@ -75,6 +75,10 @@ export class RAGService {
     const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 200, chunkOverlap: 20 });
     const splitDocs = await splitter.splitDocuments(docs);
     
+
+    /**
+     * TODO : to replace with a local embedding model
+     */
     const embeddings = {
       embedQuery: async (text: string) => Array(512).fill(0.1), // mock embedding
       embedDocuments: async (texts: string[]) => texts.map(() => Array(512).fill(0.1)),
