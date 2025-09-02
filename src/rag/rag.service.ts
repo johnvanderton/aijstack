@@ -3,6 +3,7 @@ import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { MemoryVectorStore } from 'langchain/vectorstores/memory';
 import { Document } from 'langchain/document';
 import { TextLoader } from 'langchain/document_loaders/fs/text';
+import { pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -13,6 +14,13 @@ import * as path from 'path';
  */
 @Injectable()
 export class RAGService {
+
+  /**
+   * `embedder` Property Definition
+   *
+   * Embedding model (local)
+   */
+  private embedder: FeatureExtractionPipeline | null = null;
 
   /**
    * `vectorStore` Property Definition
@@ -38,6 +46,50 @@ export class RAGService {
   constructor() {
     this.loadDocuments();
   }
+
+  /**
+   * Loads the embedding model for text feature extraction
+   * 
+   * @returns {Promise<FeatureExtractionPipeline>} The loaded embedding model.
+   */
+  private async loadEmbedder() {
+    if (!this.embedder) {
+      this.embedder = await pipeline(
+        "feature-extraction",
+        "Xenova/all-MiniLM-L6-v2" // cached locally after first run
+      );
+    }
+    return this.embedder;
+  }
+
+  /**
+   * Embeddings wrapper compatible with LangChain
+   */
+  private embeddings = {
+    /**
+     * Embeds a query text into a vector representation
+     */
+    embedQuery: async (text: string): Promise<number[]> => {
+      const model = await this.loadEmbedder();
+      const output = await model(text, { pooling: "mean", normalize: true });
+      return Array.from(output.data);
+    },
+    /**
+     * Embeds an array of document texts into vector representations.
+     * 
+     * @param texts The array of document texts to embed.
+     * @returns A promise that resolves to an array of vector representations.
+     */
+    embedDocuments: async (texts: string[]): Promise<number[][]> => {
+      const model = await this.loadEmbedder();
+      const results: number[][] = [];
+      for (const text of texts) {
+        const output = await model(text, { pooling: "mean", normalize: true });
+        results.push(Array.from(output.data));
+      }
+      return results;
+    },
+  };
 
   /**
    * `loadDocuments` Method Definition
@@ -75,9 +127,8 @@ export class RAGService {
     const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 200, chunkOverlap: 20 });
     const splitDocs = await splitter.splitDocuments(docs);
     
-
     /**
-     * TODO : to replace with a local embedding model
+     * Mock embedding model (replace with local model in production)
      */
     const embeddings = {
       embedQuery: async (text: string) => Array(512).fill(0.1), // mock embedding
@@ -87,7 +138,7 @@ export class RAGService {
     /**
      * Initializes the vector store with document embeddings
      */
-    this.vectorStore = await MemoryVectorStore.fromDocuments(splitDocs, embeddings);
+    this.vectorStore = await MemoryVectorStore.fromDocuments(splitDocs, this.embeddings);
   }
 
   /**

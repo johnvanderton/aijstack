@@ -1,5 +1,5 @@
 # AIJStack
-An AI stack built on Node.js and powered by Retrieval-Augmented Generation (RAG)
+AI stack built on Node.js and powered by `RAG` Retrieval-Augmented Generation
 
 ## Stack architecture
 The below table is describing the stack components
