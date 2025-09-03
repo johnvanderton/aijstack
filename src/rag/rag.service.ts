@@ -124,16 +124,19 @@ export class RAGService {
       docs.push(...loaded);
     }
 
+    /**
+     * Splits documents into smaller chunks for better processing
+     */
     const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 200, chunkOverlap: 20 });
     const splitDocs = await splitter.splitDocuments(docs);
     
     /**
      * Mock embedding model (replace with local model in production)
      */
-    const embeddings = {
-      embedQuery: async (text: string) => Array(512).fill(0.1), // mock embedding
-      embedDocuments: async (texts: string[]) => texts.map(() => Array(512).fill(0.1)),
-    };
+    // const embeddings = {
+    //   embedQuery: async (text: string) => Array(512).fill(0.1), // mock embedding
+    //   embedDocuments: async (texts: string[]) => texts.map(() => Array(512).fill(0.1)),
+    // };
 
     /**
      * Initializes the vector store with document embeddings
