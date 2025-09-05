@@ -3,14 +3,16 @@ AI stack built on Node.js and powered by `RAG` Retrieval-Augmented Generation
 
 ## Stack architecture
 The below table is describing the stack components
-
+ ___________________________________________________________________________________________________________________________________
 | Layer                | Node.js Tool/Lib                                             | Notes                                       |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------- |
 | **Document loader**  | `fs`                                                         | Read (raw) `.txt`, `.html`                  |
 | **RAG Framework**    | `langchainjs`                                                | Chain together: Retrieval + Generation      |
-| **LLM**              | `EleutherAI/gpt-neo-125M`                                    | Use the local API                           |
+| **RAG Embeddings**   | `Xenova/all-MiniLM-L6-v2`                                    | Fast 384-dim sentence embeddings            |
+| **LLM**              | `EleutherAI/gpt-neo-125M`                                    | Use a local model                           |
+ ===================================================================================================================================
 
-Based on `chatGPT` discussion 27-06-2025
+Initally based on `chatGPT` discussion 27-06-2025
 
 ## Example project instance
 The current instance is running a generative chat supplying basic response on a specific theme

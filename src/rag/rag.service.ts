@@ -140,14 +140,6 @@ export class RAGService {
     const splitDocs = await splitter.splitDocuments(docs);
     
     /**
-     * Mock embedding model (replace with local model in production)
-     */
-    // const embeddings = {
-    //   embedQuery: async (text: string) => Array(512).fill(0.1), // mock embedding
-    //   embedDocuments: async (texts: string[]) => texts.map(() => Array(512).fill(0.1)),
-    // };
-
-    /**
      * Initializes the vector store with document embeddings
      */
     this.vectorStore = await MemoryVectorStore.fromDocuments(splitDocs, this.embeddings);
