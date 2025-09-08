@@ -154,7 +154,7 @@ export class RAGService {
    * @returns 
    */
   async getContext(query: string): Promise<string> {
-    const results = await this.vectorStore.similaritySearch(query, 3);
+    const results = await this.vectorStore.similaritySearch(query);
     return results.map(r => r.pageContent).join('\n');
   }
   

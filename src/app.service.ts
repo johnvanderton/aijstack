@@ -9,6 +9,10 @@ import { GenService } from './model/gen.service';
  */
 @Injectable()
 export class AppService {
+
+  /**
+   * Constructor for `AppService`
+   */
   constructor(
     private readonly ragService: RAGService,
     private readonly genService: GenService,
