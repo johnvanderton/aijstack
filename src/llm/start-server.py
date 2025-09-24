@@ -37,7 +37,7 @@ model = AutoModelForCausalLM.from_pretrained(model_name,
 #
 # Define the request model for the prompt. It is a simple text input with optional parameters for generation.   
 #
-# Note: the LLM is just Predicting the next token given all previous tokens.
+# Note: the LLM is just predicting the next token given from all previous one.
 #
 ##
 class Prompt(BaseModel):
