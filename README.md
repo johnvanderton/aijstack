@@ -28,6 +28,6 @@ LLM model installation (python 3.1)
 ## How to run it?
 
 1. Run both `nodejs` and model script instance with `npm run start-dev:all`
-2. Dispose pertinent documentation related to your running example into the `documents` folder. Note: currently 'html' and 'txt' files are supported
+2. Dispose your documentation related to your running example into `/doc` folder. Note: Only 'html' and 'txt' files are supported
 3. Send a HTTP type POST message to the `http://localhost:3000/generate` (i.e : {"query" : "What is <scope> ?"})
 4. Expecting for a HTTP '201' response

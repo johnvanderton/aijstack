@@ -43,7 +43,7 @@ export class RAGService {
   /**
    * `documentsPath` Property Definition
    */
-  private readonly documentsPath = '../../documents';
+  private readonly documentsPath = '../../doc';
 
   /**
    * Constructor
