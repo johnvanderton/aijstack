@@ -21,10 +21,10 @@ default_repetition_penalty_value = 1.5
 default_temperature_value = 0.7
 
 # Load the model and tokenizer (small setup for testing purposes)
-model_name = "EleutherAI/gpt-neo-125M" #causal language models which is 
-#model_name = "microsoft/phi-2" #causal language models which is 
-#model_name = "microsoft/phi-1_5" #too retest
-#model_name = "microsoft/Phi-3-mini-4k-instruct" #too slow
+model_name = "EleutherAI/gpt-neo-125M" #lightweight
+#model_name = "microsoft/phi-2"  
+#model_name = "microsoft/phi-1_5"
+#model_name = "microsoft/Phi-3-mini-4k-instruct" #too heavy for light gpu
 
 # For this example, we will use a smaller model to ensure it runs smoothly
 tokenizer = AutoTokenizer.from_pretrained(model_name)

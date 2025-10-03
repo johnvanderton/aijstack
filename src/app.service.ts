@@ -26,36 +26,10 @@ export class AppService {
    * This method is generating the context from the RAG service in order to send it to the Gen service (LLM).
    * Once the context is generated, it is sent to the Gen service along with the user's query to produce an answer.
    * 
-   * TODO : keeps up to date the context following the previous response et questions
-   * 
    * @param query input value which is the user's question
    * @returns an object containing the query, context, and generated answer
    */
   async generate(query: string) {
-
-    //Get memory summary + relevant past turns
-    //const memory = await cms.retrieve(userMessage);
-
-    //Build final prompt
-    //const prompt = buildPrompt(memory, docs, userMessage);
-
-    // // Create memory for a user session
-    // const sessionMemory = new ContextualSessionMemory(20);
-
-    // // User message
-    // sessionMemory.addTurn("user", "Hi! Can you suggest a good movie?");
-
-    // // Optional: retrieve relevant RAG docs
-    // const retrievedDocs = await retrieveRelevantDocs("movie suggestion"); // returns array of strings
-
-    // // Combine conversation + RAG info
-    // const prompt = sessionMemory.getEnrichedContext(retrievedDocs);
-
-    // // Call the LLM with enriched context
-    // const modelResponse = await callLLM(prompt);
-
-    // // Store model response
-    // sessionMemory.addTurn("assistant", modelResponse);
 
     /**
      * Producing the context based from the query and refined from RAG
@@ -67,9 +41,6 @@ export class AppService {
      */
     const answer = await this.genService.callLocalModel(context, query);
     
-    //Save new turn into CMS
-    //await cms.store(userMessage, reply);
-
     return { answer };
   }
 

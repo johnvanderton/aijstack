@@ -6,6 +6,11 @@ import { AppService } from './app.service';
  */
 @Controller()
 export class AppController {
+
+  /**
+   * 
+   * @param appService - Injected application service
+   */
   constructor(private readonly appService: AppService) {}
 
   /**

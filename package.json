@@ -1,6 +1,8 @@
 {
   "name": "aijstack",
   "version": "0.0.1",
+  "description": "AIJStack - A modular AI stack for building applications with LLMs and RAG",
+  "author": "John Van Derton",
   "scripts": {
     "start-dev:all": "npm run clean && concurrently \"npm run start-llm:dev\" \"npm run start-rag:dev\"",
     "start-rag:dev": "nest start",
