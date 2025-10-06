@@ -159,9 +159,9 @@ export class RAGService {
     //return results.map(r => r.pageContent).join('\n');
     
     const answerMatch = results[0].pageContent.match(/answer\s*[:\-]\s*(.*)/i);
-    const answer = answerMatch ? answerMatch[1] : '';
+    const context = answerMatch ? answerMatch[1] : '';
     
-    return answer;
+    return context;
   }
   
 }

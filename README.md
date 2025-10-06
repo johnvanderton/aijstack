@@ -2,7 +2,7 @@
 AI stack built on Node.js and powered by `RAG` Retrieval-Augmented Generation
 
 ## Stack architecture
-The below table is describing the stack abstractions
+The below table is describing the different layer abstractions
 
 | Layer                | Node.js Tool/Lib                                             | Notes                                       |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------- |
