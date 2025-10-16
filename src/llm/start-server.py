@@ -11,7 +11,7 @@ app = FastAPI()
 # Default values for the server
 default_logging_level = "info"  # Options: "debug", "info", "warning", "error", "critical"
 default_port_listenning = 8000
-default_host_listenning = "127.0.0.1"   
+default_host_listenning = "127.0.0.1"
 
 # Default values for the model generation parameters
 default_do_sample_value = False

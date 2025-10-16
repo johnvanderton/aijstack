@@ -129,8 +129,8 @@ export class RAGService {
      */
     for (const file of files) {
       const loader = new TextLoader(path.join(docsPath, file));
-      const loaded = await loader.load();
-      docs.push(...loaded);
+      const fileLoaded = await loader.load();
+      docs.push(...fileLoaded);
     }
 
     /**
