@@ -20,8 +20,8 @@ The current instance is running a generative chat supplying basic response on a 
 ## Installation steps
 
 Use the 'installation' script which is,
-    - Creates a virtual environment `.venv`
-    - Imports the following package into this new environment (fastapi, uvicorn, torch, transformers, accelerate, pydantic)
+- Creates a virtual environment `.venv`
+- Imports the following package into this new environment (fastapi, uvicorn, torch, transformers, accelerate, pydantic)
 
 ## How to run it?
 
