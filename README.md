@@ -15,19 +15,17 @@ Initally based on `chatGPT` discussion 27-06-2025
 
 ## Example project instance
 
-The current instance is running a generative chat supplying basic response on a specific theme
+The current instance is running a generative chat supplying basic response on a specific theme (doc)
 
 ## Installation steps
 
-Nodejs based project installation
-    `npm install`
-
-LLM model installation (python 3.1)
-    `pip/pip3.10 install fastapi uvicorn torch transformers accelerate pydantic`
+Use the 'installation' script which is,
+    - Creates a virtual environment `.venv`
+    - Imports the following package into this new environment (fastapi, uvicorn, torch, transformers, accelerate, pydantic)
 
 ## How to run it?
 
-1. Run both `nodejs` and model script instance with `npm run start-dev:all`
+1. Run both `nodejs` and `model` script instances with `npm run start-dev:all` command
 2. Dispose your documentation related to your running example into `/doc` folder. Note: Only 'html' and 'txt' files are supported
 3. Send a POST HTTP JSON message to `http://localhost:3000/generate` i.e : {"query" : "What is (your scope) ?"}
 4. Expecting for a HTTP '201' JSON message response
