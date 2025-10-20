@@ -16,11 +16,6 @@ import * as path from 'path';
 export class RAGService {
 
   /**
-   * `DEFAULT_FOLDER` Static Property Definition
-   */
-  private static DEFAULT_DOCUMENT_FOLDER = 'nestjs';
-
-  /**
    * `embedder` Property Definition
    *
    * Embedding model (local)
@@ -42,6 +37,7 @@ export class RAGService {
 
   /**
    * `documentsPath` Property Definition
+   * todo : make it configurable
    */
   private readonly documentsPath = '../../doc';
 
@@ -105,12 +101,12 @@ export class RAGService {
    * 
    * @returns {Promise<void>}
    */
-  async loadDocuments(folder: string = RAGService.DEFAULT_DOCUMENT_FOLDER) {
+  async loadDocuments(): Promise<void> {
 
     /**
      * Resolve the absolute path to the documents directory
      */
-    const docsPath = path.resolve(__dirname, this.documentsPath, folder);
+    const docsPath = path.resolve(__dirname, this.documentsPath);
 
     /**
      * Read all files from the documents directory
