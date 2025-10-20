@@ -6,18 +6,17 @@
   "requiredNodeVersion": ">=18.0.0",
   "requiredPythonVersion": ">=3.9.0",
   "scripts": {
-    "installation": "npm run __create-venv && npm run __get_dependencies",
+    "installation": "npm run _create-venv && npm run _get_dependencies",
     "start-dev:all": "npm run clean && concurrently \"npm run start-llm:dev\" \"npm run start-rag:dev\"",
     "start-rag:dev": "nest start",
     "start-rag:debug": "nest start --watch",
     "start-llm:dev": ".venv/bin/python src/llm/start-server.py",
     "start-llm:debug": ".venv/bin/python src/llm/start-server.py --debug",
     "clean": "rm -rf dist",
-    "__create-venv": "python3 -m venv .venv && .venv/bin/pip install --upgrade pip setuptools wheel",
-    "__get_dependencies": ".venv/bin/pip3.9 install -r requirements.txt"
+    "_create-venv": "python3 -m venv .venv && .venv/bin/pip install --upgrade pip setuptools wheel",
+    "_get_dependencies": ".venv/bin/pip3.9 install -r requirements.txt"
   },
   "dependencies": {
-    "@langchain/community": "^1.0.0",
     "@nestjs/common": "^11.1.6",
     "@nestjs/core": "^11.1.6",
     "@nestjs/platform-express": "^11.1.6",
