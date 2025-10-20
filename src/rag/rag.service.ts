@@ -3,9 +3,15 @@ import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { MemoryVectorStore } from 'langchain/vectorstores/memory';
 import { Document } from 'langchain/document';
 import { TextLoader } from 'langchain/document_loaders/fs/text';
+import { JSONLoader } from 'langchain/document_loaders/fs/json';
+import { DocxLoader } from "@langchain/community/document_loaders/fs/docx";
+import { CSVLoader } from "@langchain/community/document_loaders/fs/csv";
+import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
+import { DirectoryLoader } from 'langchain/document_loaders/fs/directory';
 import { pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
 import * as fs from 'fs';
 import * as path from 'path';
+
 
 /**
  * `RAGService` Class Definition
@@ -33,11 +39,10 @@ export class RAGService {
    * `fileExtensions` Property Definition
    */
   //private readonly fileExtensions = ['.txt', '.pdf', '.xlsx', '.db', '.docx', 'doc', '.pptx', '.csv', '.md', '.json', 'html'];
-  private readonly fileExtensions = ['.txt','html'];
+  private readonly fileExtensions = ['.txt'];
 
   /**
    * `documentsPath` Property Definition
-   * todo : make it configurable
    */
   private readonly documentsPath = '../../doc';
 
@@ -123,6 +128,7 @@ export class RAGService {
     /**
      * For each file found in the documents directory, load the file content and add it to the documents array
      */
+    
     for (const file of files) {
       const loader = new TextLoader(path.join(docsPath, file));
       const fileLoaded = await loader.load();
