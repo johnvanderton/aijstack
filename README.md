@@ -6,7 +6,8 @@ The below table is describing the different layer abstractions
 
 | Layer               | Node.js Tool/Lib                  | Notes                                     |
 |---------------------|-----------------------------------|-------------------------------------------|
-| **Document loader** | `fs`                              | Read (raw) `.txt`                         |
+| **Document loader** | `fs`                              | -                                         |
+| **Document Parser** | `langchain`                       | File format supported  `.txt`             |
 | **RAG Framework**   | `langchainjs`                     | Chain together: Retrieval + Generation    |
 | **RAG Embeddings**  | `Xenova/all-MiniLM-L6-v2`         | Fast 384-dim sentence embeddings          |
 | **LLM**             | `EleutherAI/gpt-neo-125M`         | Use a local model                         |
@@ -15,17 +16,31 @@ Initally based on `chatGPT` discussion 27-06-2025
 
 ## Example project instance
 
-The current instance is running a generative chat supplying basic response on a specific theme (doc)
+The current instance is running a generative chat supplying basic response on a specific theme
+
+## Prerequirements
+
+- Python `3.9`, later version are not yet covered by torch prebuilt
+- Nodejs version >= `18.0` (not tested)
 
 ## Installation steps
 
-Use the 'installation' script which is,
-- Creates a virtual environment `.venv`
-- Imports the following package into this new environment (fastapi, uvicorn, torch, transformers, accelerate, pydantic)
+Perform global installation
+    
+    - Use the `installation` script which is performing the following sub scripts,
+
+        - `_js-env_install` script dedicated to the node environment
+        - `_py-env_install` script dedicated to the python environment
+
+Notes
+
+    - `py-env_install` is creating a virtual environment `.venv` and import the following packages into this new environment (fastapi, uvicorn, torch, transformers, accelerate, pydantic)
+
+    - In case of compatibility problems, run `numpy-fix`
 
 ## How to run it?
 
-1. Run both `nodejs` and `model` script instances with `npm run start-dev:all` command
-2. Dispose your documentation related to your running example into `/doc` folder. Note: Only 'html' and 'txt' files are supported
+1. Dispose your documentation related to your running example into `/doc` folder. Note: Currently 'txt' files are only supported
+2. Run both `nodejs` and `model` script instances with `quick-start` or `npm run start-dev:all` command
 3. Send a POST HTTP JSON message to `http://localhost:3000/generate` i.e : {"query" : "What is (your scope) ?"}
 4. Expecting for a HTTP '201' JSON message response
