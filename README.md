@@ -34,7 +34,7 @@ Perform global installation
 
 Notes
 
-    - `py-env_install` is creating a virtual environment `.venv` and import the following packages into this new environment (fastapi, uvicorn, torch, transformers, accelerate, pydantic)
+    - `py-env_install` script is creating a `.venv` virtual environment and imports the following packages (fastapi, uvicorn, torch, transformers, accelerate, pydantic)
 
 ## How to run it?
 
