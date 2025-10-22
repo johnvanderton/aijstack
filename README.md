@@ -8,9 +8,9 @@ The below table is describing the different layer abstractions
 |---------------------|-----------------------------------|-------------------------------------------|
 | **Document loader** | `fs`                              | -                                         |
 | **Document Parser** | `langchain`                       | File format supported  `.txt`             |
-| **RAG Framework**   | `langchainjs`                     | Chain together: Retrieval + Generation    |
+| **RAG Framework**   | `langchain`                       | Chain together: Retrieval + Generation    |
 | **RAG Embeddings**  | `Xenova/all-MiniLM-L6-v2`         | Fast 384-dim sentence embeddings          |
-| **LLM**             | `EleutherAI/gpt-neo-125M`         | Use a local model                         |
+| **LLM**             | `EleutherAI/gpt-neo-125M`         | Light model                               |
 
 Initally based on `chatGPT` discussion 27-06-2025
 
@@ -36,11 +36,9 @@ Notes
 
     - `py-env_install` is creating a virtual environment `.venv` and import the following packages into this new environment (fastapi, uvicorn, torch, transformers, accelerate, pydantic)
 
-    - In case of compatibility problems, run `numpy-fix`
-
 ## How to run it?
 
-1. Dispose your documentation related into `/doc` folder. Note: Currently only 'txt' files are supported
-2. Run both `nodejs` and `model` script instances with `quick-start` or `npm run start-dev:all` command
+1. Dispose your documentation into the `/doc` folder. Note: Currently only 'txt' files are supported
+2. Run both `nodejs` and `model` script instances with `quick-start` or `npm run start-dev:all`
 3. Send a POST HTTP JSON message to `http://localhost:3000/generate` i.e : {"query" : "What is (your scope) ?"}
 4. Expecting for a HTTP '201' JSON message response
