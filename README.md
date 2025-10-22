@@ -40,7 +40,7 @@ Notes
 
 ## How to run it?
 
-1. Dispose your documentation related to your running example into `/doc` folder. Note: Currently 'txt' files are only supported
+1. Dispose your documentation related into `/doc` folder. Note: Currently only 'txt' files are supported
 2. Run both `nodejs` and `model` script instances with `quick-start` or `npm run start-dev:all` command
 3. Send a POST HTTP JSON message to `http://localhost:3000/generate` i.e : {"query" : "What is (your scope) ?"}
 4. Expecting for a HTTP '201' JSON message response

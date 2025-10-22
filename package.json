@@ -8,7 +8,7 @@
   "scripts": {
     "quick-start":"npm run start-dev:all",
     "installation":"npm run _js-env_install && npm run _py-env_install",
-    "numpy-fix": ".venv/bin/pip3.9 install numpy<2",
+    "numpy-fix": ".venv/bin/pip3.9 install 'numpy<2'",
     "start-dev:all": "npm run clean && concurrently \"npm run start-llm:dev\" \"npm run start-rag:dev\"",
     "start-rag:dev": "nest start",
     "start-rag:debug": "nest start --watch",
