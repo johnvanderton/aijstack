@@ -6,8 +6,8 @@
   "requiredNodeVersion": ">=18.0.0",
   "requiredPythonVersion": ">=3.9.0",
   "scripts": {
-    "quick-start":"npm run start-dev:all",
-    "installation":"npm run _js-env_install && npm run _py-env_install",
+    "quick-start": "npm run start-dev:all",
+    "installation": "npm run _js-env_install && npm run _py-env_install",
     "start-dev:all": "npm run clean && concurrently \"npm run start-llm:dev\" \"npm run start-rag:dev\"",
     "start-rag:dev": "nest start",
     "start-rag:debug": "nest start --watch",
@@ -21,6 +21,7 @@
     "_get_dependencies": ".venv/bin/pip3.9 install -r requirements.txt"
   },
   "dependencies": {
+    "@langchain/core": "^0.3.58",
     "@nestjs/common": "^11.1.7",
     "@nestjs/core": "^11.1.7",
     "@nestjs/platform-express": "^11.1.7",
