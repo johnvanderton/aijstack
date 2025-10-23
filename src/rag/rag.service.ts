@@ -125,7 +125,6 @@ export class RAGService {
     /**
      * For each file found in the documents directory, load the file content and add it to the documents array
      */
-    
     for (const file of files) {
       const loader = new TextLoader(path.join(docsPath, file));
       const fileLoaded = await loader.load();
@@ -135,7 +134,7 @@ export class RAGService {
     /**
      * Splits documents into smaller chunks for better processing
      */
-    const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 200, chunkOverlap: 20 });
+    const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 1000, chunkOverlap: 200 });
     const splitDocs = await splitter.splitDocuments(docs);
     
     /**
@@ -155,12 +154,8 @@ export class RAGService {
   async getContext(query: string): Promise<string> {
 
     const results = await this.vectorStore.similaritySearch(query, 4);
-    //return results.map(r => r.pageContent).join('\n');
-    
-    const answerMatch = results[0].pageContent.match(/answer\s*[:\-]\s*(.*)/i);
-    const context = answerMatch ? answerMatch[1] : '';
-    
-    return context;
+    return results.map(r => r.pageContent).join('\n');
+
   }
   
 }

@@ -7,7 +7,7 @@
   "requiredPythonVersion": ">=3.9.0",
   "scripts": {
     "quick-start": "npm run start-dev:all",
-    "installation": "npm run _js-env_install && npm run _py-env_install",
+    "install": "npm run _js-env_install && npm run _py-env_install",
     "start-dev:all": "npm run clean && concurrently \"npm run start-llm:dev\" \"npm run start-rag:dev\"",
     "start-rag:dev": "nest start",
     "start-rag:debug": "nest start --watch",
