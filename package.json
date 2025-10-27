@@ -4,7 +4,7 @@
   "description": "AIJStack - A modular AI stack for building applications with LLMs and RAG",
   "author": "John Van Derton",
   "requiredNodeVersion": ">=18.0.0",
-  "requiredPythonVersion": ">=3.9.0",
+  "requiredPythonVersion": "3.9.0",
   "scripts": {
     "quick-start": "npm run start-dev:all",
     "installation": "npm run _js-env_install && npm run _py-env_install",
