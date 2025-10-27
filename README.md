@@ -10,7 +10,7 @@ The below table is describing the different layer abstractions
 | **Document Parser** | `langchain`                       | File format supported  `txt`              |
 | **RAG Framework**   | `langchain`                       | Chain together: Retrieval + Generation    |
 | **RAG Embeddings**  | `Xenova/all-MiniLM-L6-v2`         | Fast 384-dim sentence embeddings          |
-| **LLM**             | `EleutherAI/gpt-neo-125M`         | Lightweight causal language model (CLM)   |
+| **LLM**             | `EleutherAI/gpt-neo-125M`         | Lightweight Model                         |
 
 Initally based on `chatGPT` discussion, 27-06-2025
 

@@ -14,6 +14,11 @@ default_port_listenning = 8000
 default_host_listenning = "127.0.0.1"
 
 # Default values for the model generation parameters
+# temperature: Controls the randomness of predictions by scaling the logits before applying softmax.
+# do_sample: Whether or not to use sampling; use greedy decoding otherwise.
+# max_new_tokens: The maximum number of new tokens to generate.
+# no_repeat_ngram_size: Ensures that no n-grams of this size are repeated in the generated text.
+# repetition_penalty: Penalizes repeated tokens to reduce redundancy in the output
 default_do_sample_value = False
 default_max_tokens_value = 200
 default_no_repeat_ngram_size_value = 3
@@ -22,9 +27,8 @@ default_temperature_value = 0.7
 
 # Load the model and tokenizer (small setup for testing purposes)
 model_name = "EleutherAI/gpt-neo-125M" #lightweight
-#model_name = "microsoft/phi-2"  
 #model_name = "microsoft/phi-1_5"
-#model_name = "microsoft/Phi-3-mini-4k-instruct" #too heavy for light gpu
+
 
 # For this example, we will use a smaller model to ensure it runs smoothly
 tokenizer = AutoTokenizer.from_pretrained(model_name)
