@@ -28,7 +28,7 @@ The current instance is running a generative chat supplying basic response on a 
 
 Perform global installation
     
-Use the `installation` script which is performing the following sub scripts,
+Use the `installation` script (or `npm run installation`) which is performing the following sub scripts,
 
 - `_js-env_install` script dedicated to node environment
 - `_py-env_install` script dedicated to python environment
@@ -41,5 +41,5 @@ Note,
 
 1. Dispose your documentation into the `/doc` folder. Note: Currently only 'txt' files are supported
 2. Run both `nodejs` and `model` script instances with `quick-start` or `npm run start-dev:all`
-3. Send a POST HTTP JSON message to `http://localhost:3000/generate` i.e : {"query" : "What is (your scope) ?"}
+3. Send through HTTP POST a JSON message to `http://localhost:3000/generate` i.e : {"query" : "What is (your scope) ?"}
 4. Expecting for a HTTP '201' JSON message response (json anwser response : Context... > Question... > Answer...) 
