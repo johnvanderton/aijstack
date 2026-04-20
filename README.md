@@ -27,15 +27,17 @@ The current instance is running a generative chat supplying basic response on a 
 ## Installation steps
 
 Perform global installation
-    
-Use the `installation` script (or `npm run installation`) which is performing the following sub scripts,
 
-- `_js-env_install` script dedicated to node environment
-- `_py-env_install` script dedicated to python environment
+Get a copy of the current project locally `git clone https://github.com/johnvanderton/aijstack` then go to this filder and perform the installation script `npm run installation` 
 
-Note,
+Note, `py-env_install` script is creating a `.venv` virtual environment and imports the following packages,
 
-`py-env_install` script is creating a `.venv` virtual environment and imports the following packages (fastapi, uvicorn, torch, transformers, accelerate, pydantic)
+    - fastapi 
+    - uvicorn 
+    - torch 
+    - transformers     
+    - accelerate 
+    - pydantic
 
 ## How to run it?
 
