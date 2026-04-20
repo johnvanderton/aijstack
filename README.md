@@ -28,9 +28,9 @@ The current instance is running a generative chat supplying basic response on a 
 
 Perform global installation
 
-Get a copy of the current project locally `git clone https://github.com/johnvanderton/aijstack` then go to this filder and perform the installation script `npm run installation` 
+Get a copy of the current project locally `git clone https://github.com/johnvanderton/aijstack` then go to this folder and perform the installation script `npm run installation` 
 
-Note, `py-env_install` script is creating a `.venv` virtual environment and imports the following packages,
+Note, `py-env_install` is creating a `.venv` virtual environment and imports the following packages,
 
     - fastapi 
     - uvicorn 
