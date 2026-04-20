@@ -1,24 +1,47 @@
 # AIJStack
+AI stack built on Node.js and powered by `RAG` Retrieval-Augmented Generation
 
-AI stack based on 'RAG' Retrieval-Augmented Generation and `EleutherAI/gpt-neo-125M` LLM model.
+## Stack architecture
+The below table is describing the different layer abstractions
 
-| Layer                | Node.js Tool/Lib                                             | Notes                                       |
-| -------------------- | ------------------------------------------------------------ | ------------------------------------------- |
-| **Document loader**  | `fs`, `pdf-parse`, `mammoth`, `textract`                     | Read `.txt`, `.pdf`, `.docx`, etc.          |
-| **Chunking**         | `wink-nlp`                                                   | Create overlapping chunks                   |
-| **Embeddings**       | `@tensorflow-models/universal-sentence-encoder`              | Local: TensorFlow\.js; Remote: OpenAI, etc  |
-| **Vector search**    | `vectra`, `hnswlib-node`, `chromadb-node`, `weaviate-client` | Store and retrieve embedded chunks          |
-| **RAG Framework**    | `langchainjs`                                                | Chain together: Retrieval + Generation      |
-| **LLM**              | `EleutherAI/gpt-neo-125M`                                    | Use the local API                           |
-| **Fine Tuning**      | `gguf`                                                       | Teach model new info (HuggingFace)          |
-| **Quantization**     | `gguf`                                                       | Make model smaller and faster (HuggingFace) |
-| **Bot Serving**      | `Vite`                                                       | Serve chatbot as REST, WebSocket, or UI     |
+| Layer               | Node.js Tool/Lib                  | Notes                                     |
+|---------------------|-----------------------------------|-------------------------------------------|
+| **Document loader** | `fs`                              | -                                         |
+| **Document Parser** | `langchain`                       | File format supported  `txt`              |
+| **RAG Framework**   | `langchain`                       | Chain together: Retrieval + Generation    |
+| **RAG Embeddings**  | `Xenova/all-MiniLM-L6-v2`         | Fast 384-dim sentence embeddings          |
+| **LLM**             | `EleutherAI/gpt-neo-125M`         | Lightweight Model                         |
 
-ChatGPT log discussion 27-06-2025
+Initally based on `chatGPT` discussion, 27-06-2025
+
+## Example project instance
+
+The current instance is running a generative chat supplying basic response on a specific theme
+
+## Prerequirements
+
+- Python `3.9`, later version are not yet covered by torch prebuilt
+- Nodejs version >= `18.0` (not tested)
+- English documentation is only supported by LLM
 
 ## Installation steps
 
-### LLM server instance
-The current instance is developed with Python 3.10 and should use the below statement for dependecies installation,
+Perform global installation
 
-`pip/pip3.10 install fastapi uvicorn torch transformers accelerate pydantic`
+Get a copy of the current project locally `git clone https://github.com/johnvanderton/aijstack` then go to this folder and perform the installation script `npm run installation` 
+
+Note, `py-env_install` is creating a `.venv` virtual environment and imports the following packages,
+
+    - fastapi 
+    - uvicorn 
+    - torch 
+    - transformers     
+    - accelerate 
+    - pydantic
+
+## How to run it?
+
+1. Dispose your documentation into the `/doc` folder. Note: Currently only 'txt' files are supported
+2. Run both `nodejs` and `model` script instances with `quick-start` or `npm run start-dev:all`
+3. Send through HTTP POST a JSON message to `http://localhost:3000/generate` i.e : {"query" : "What is (your scope) ?"}
+4. Expecting for a HTTP '201' JSON message response (json anwser response : Context... > Question... > Answer...) 

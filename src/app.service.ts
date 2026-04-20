@@ -9,6 +9,10 @@ import { GenService } from './model/gen.service';
  */
 @Injectable()
 export class AppService {
+
+  /**
+   * Constructor for `AppService`
+   */
   constructor(
     private readonly ragService: RAGService,
     private readonly genService: GenService,
@@ -36,7 +40,7 @@ export class AppService {
      * Context as well as the query are sent to the the model
      */
     const answer = await this.genService.callLocalModel(context, query);
-
+    
     return { answer };
   }
 

@@ -1,11 +1,20 @@
 import { Controller, Post, Body, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
+/**
+ * Main application controller
+ */
 @Controller()
 export class AppController {
+
+  /**
+   * 
+   * @param appService - Injected application service
+   */
   constructor(private readonly appService: AppService) {}
 
   /**
+   * `Root` Endpoint Definition
    * 
    * @param query 
    * @returns 
@@ -16,8 +25,7 @@ export class AppController {
   }
 
   /**
-   * 
-   * `generate` Method Definition
+   * `Generate` Endpoint Definition
    * 
    * Generates an answer based on the provided query.
    * 

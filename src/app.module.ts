@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { RAGService } from './rag/rag.service';
 import { GenService } from './model/gen.service';
 
+/**
+ * Main application module
+ */
 @Module({
   imports: [],
   controllers: [AppController],
