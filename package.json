@@ -39,5 +39,9 @@
     "concurrently": "^9.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.0"
+  },
+  "allowScripts": {
+    "protobufjs@6.11.6": true,
+    "sharp@0.32.6": true
   }
 }
